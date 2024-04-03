@@ -1,0 +1,43 @@
+package com.example.demo.test;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+@RestController
+
+public class test {
+
+    @GetMapping("/in")
+    public String getdbdata() {
+        String jdbcurl = "jdbc:mysql://127.0.0.1:3306/tracker_db" +
+                "";
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(jdbcurl, "root", "root");
+            String sql = "insert into users values('john','john@gmail.commemm','j123',1)";
+            Statement statement = connection.createStatement();
+            int row = statement.executeUpdate(sql);
+            if (row > 0) {
+                return "inserted a row";
+
+            } else {
+                return "not inserted a row";
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Execution occured id " + e);
+        }
+        return "db connection was successful and row was inserted";
+    }
+    public String hi()
+    {
+        return "hello";
+    }
+
+}
